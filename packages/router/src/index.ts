@@ -1,6 +1,7 @@
 import {
   PERSONAL_PLANS,
   SERVER_PLANS,
+  calculateEffectiveEntitlements,
   getEffectiveModelConfig
 } from "@okg/config";
 
@@ -33,9 +34,11 @@ export class SmartModelRouter {
       throw new Error(`Unknown plan: ${request.planId}`);
     }
 
+    const entitlements = calculateEffectiveEntitlements(plan);
+
     const model = getEffectiveModelConfig(
       request.selectedModelId,
-      plan
+      entitlements
     );
 
     if (!model) {
@@ -45,14 +48,14 @@ export class SmartModelRouter {
     }
 
     return {
-  selectedModelId: model.modelId,
-  omniRouteModel: model.omniRouteModel,
-  tokenCost: model.tokenCost,
-  dailyLimit: model.dailyLimit,
-  contextLimit: Math.min(
-    plan.contextLimit,
-    model.contextLimit
-  )
-};
+      selectedModelId: model.modelId,
+      omniRouteModel: model.omniRouteModel,
+      tokenCost: model.tokenCost,
+      dailyLimit: model.dailyLimit,
+      contextLimit: Math.min(
+        entitlements.contextLimit,
+        model.contextLimit
+      )
+    };
   }
 }
