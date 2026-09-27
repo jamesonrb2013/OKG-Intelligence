@@ -4,19 +4,65 @@ import {
 } from "../models/index.js";
 
 import type {
-  ModelConfig,
-  PlanConfig
-} from "../types.js";
+  EffectiveEntitlements
+} from "./index.js";
 
-export interface EffectiveModelConfig extends ModelConfig {
+export interface EffectiveModelConfig {
+  modelId: string;
+  name: string;
+  displayName: string;
+  generation: 1 | 2 | 3 | 4 | 5;
+  variant:
+    | "standard"
+    | "flash"
+    | "mini"
+    | "pro"
+    | "lite"
+    | "plus"
+    | "plus-lite"
+    | "pro-lite"
+    | "flash-lite"
+    | "complex"
+    | "complex-pro"
+    | "codex"
+    | "codex-pro"
+    | "ultimate";
+
+  provider?: string;
+  omniRouteModel?: string;
+
+  enabled: boolean;
+  status:
+    | "ACTIVE"
+    | "MAINTENANCE"
+    | "DISABLED"
+    | "EXPERIMENTAL";
+
+  defaultTokenCost: number;
+  defaultDailyLimit?: number;
+  defaultMonthlyLimit?: number;
+
   tokenCost: number;
   dailyLimit?: number;
   monthlyLimit?: number;
+
+  contextLimit: number;
+  outputLimit?: number;
+
+  priority: number;
+
+  capabilities: string[];
+
+  supportedPlans: string[];
+  supportedExpansions: string[];
+
+  ultimate: boolean;
+  experimental: boolean;
 }
 
 export function getEffectiveModelConfig(
   modelId: string,
-  plan: PlanConfig
+  entitlements: EffectiveEntitlements
 ): EffectiveModelConfig | null {
   const model = MODEL_CATALOG[modelId];
 
@@ -29,23 +75,23 @@ export function getEffectiveModelConfig(
   }
 
   if (
-    !plan.modelAccess.includes(modelId) &&
-    !plan.modelAccess.includes("*")
+    !entitlements.modelAccess.includes(modelId) &&
+    !entitlements.modelAccess.includes("*")
   ) {
     return null;
   }
 
   const tokenCost =
-    plan.modelPriceOverrides[modelId] ??
+    entitlements.plan.modelPriceOverrides[modelId] ??
     model.defaultTokenCost;
 
   const configuredDailyLimit =
-    plan.modelLimitOverrides[modelId] ??
+    entitlements.plan.modelLimitOverrides[modelId] ??
     model.defaultDailyLimit ??
     MODEL_DAILY_LIMITS[modelId];
 
   const monthlyLimit =
-    plan.modelLimitOverrides[`${modelId}:monthly`] ??
+    entitlements.plan.modelLimitOverrides[`${modelId}:monthly`] ??
     model.defaultMonthlyLimit;
 
   return {
