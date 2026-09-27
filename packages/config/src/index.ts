@@ -17,3 +17,13 @@ export type {
   ExpansionConfig,
   FeatureConfig
 } from "./types.js";
+
+export {
+  calculateEffectiveEntitlements,
+  getEffectiveModelConfig
+} from "./entitlements/index.js";
+
+export type {
+  EffectiveEntitlements,
+  EffectiveModelConfig
+} from "./entitlements/index.js";
