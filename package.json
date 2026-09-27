@@ -1,13 +1,13 @@
 {
-“name”: “okg-intelligence”,
-“version”: “0.1.0”,
-“private”: true,
-“description”: “OKG Intelligence AI platform”,
-“packageManager”: “pnpm@11.19.0”,
-“scripts”: {
-“dev”: “pnpm –filter @okg/api dev”,
-“build”: “pnpm -r build”,
-“start”: “pnpm –filter @okg/api start”,
-“typecheck”: “pnpm -r typecheck”
-}
+  "name": "okg-intelligence",
+  "version": "0.1.0",
+  "private": true,
+  "description": "OKG Intelligence AI platform",
+  "packageManager": "pnpm@11.19.0",
+  "scripts": {
+    "dev": "pnpm --filter @okg/api dev",
+    "build": "pnpm -r build",
+    "start": "pnpm --filter @okg/api start",
+    "typecheck": "pnpm -r typecheck"
+  }
 }
