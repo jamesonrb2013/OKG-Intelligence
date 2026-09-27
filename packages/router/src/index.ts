@@ -45,13 +45,14 @@ export class SmartModelRouter {
     }
 
     return {
-      selectedModelId: model.modelId,
-      tokenCost: model.tokenCost,
-      dailyLimit: model.dailyLimit,
-      contextLimit: Math.min(
-        plan.contextLimit,
-        model.contextLimit
-      )
-    };
+  selectedModelId: model.modelId,
+  omniRouteModel: model.omniRouteModel,
+  tokenCost: model.tokenCost,
+  dailyLimit: model.dailyLimit,
+  contextLimit: Math.min(
+    plan.contextLimit,
+    model.contextLimit
+  )
+};
   }
 }
