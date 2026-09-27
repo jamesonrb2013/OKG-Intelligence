@@ -55,6 +55,8 @@ export interface ModelConfig {
 
   fallbackModel?: string;
 
-  ultimate: boolean;
+    ultimate: boolean;
   experimental: boolean;
+
+  omniRouteModel?: string;
 }
