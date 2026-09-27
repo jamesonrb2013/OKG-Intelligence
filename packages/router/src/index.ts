@@ -12,6 +12,7 @@ export interface RouterRequest {
 
 export interface RouterResult {
   selectedModelId: string;
+  omniRouteModel?: string;
   tokenCost: number;
   dailyLimit?: number;
   contextLimit: number;
