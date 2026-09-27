@@ -347,3 +347,12 @@ export const MODEL_CATALOG: Record<string, ModelConfig> = {
     ultimate: true
   }
 };
+
+export function getModelConfig(
+
+  modelId: string
+
+): ModelConfig | undefined {
+
+  return MODEL_CATALOG[modelId];
+}
