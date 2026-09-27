@@ -121,3 +121,6 @@ export function calculateEffectiveEntitlements(
     customizationLevel
   };
 }
+
+export { getEffectiveModelConfig } from "./models.js";
+export type { EffectiveModelConfig } from "./models.js";
