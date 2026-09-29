@@ -85,19 +85,24 @@ export function getEffectiveModelConfig(
     entitlements.plan.modelPriceOverrides[modelId] ??
     model.defaultTokenCost;
 
-  const configuredDailyLimit =
+  const dailyLimit =
+    entitlements.plan.modelLimitOverrides[
+      `${modelId}:daily`
+    ] ??
     entitlements.plan.modelLimitOverrides[modelId] ??
     model.defaultDailyLimit ??
     MODEL_DAILY_LIMITS[modelId];
 
   const monthlyLimit =
-    entitlements.plan.modelLimitOverrides[`${modelId}:monthly`] ??
+    entitlements.plan.modelLimitOverrides[
+      `${modelId}:monthly`
+    ] ??
     model.defaultMonthlyLimit;
 
   return {
     ...model,
     tokenCost,
-    dailyLimit: configuredDailyLimit,
+    dailyLimit,
     monthlyLimit
   };
 }
