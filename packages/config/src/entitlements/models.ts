@@ -106,3 +106,24 @@ export function getEffectiveModelConfig(
     monthlyLimit
   };
 }
+
+export function getAvailableModels(
+  entitlements: EffectiveEntitlements
+): EffectiveModelConfig[] {
+  const models: EffectiveModelConfig[] = [];
+
+  for (const modelId of Object.keys(MODEL_CATALOG)) {
+    const model = getEffectiveModelConfig(
+      modelId,
+      entitlements
+    );
+
+    if (model) {
+      models.push(model);
+    }
+  }
+
+  return models.sort(
+    (a, b) => b.priority - a.priority
+  );
+}
