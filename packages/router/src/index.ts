@@ -1,6 +1,6 @@
 import {
-  PERSONAL_PLANS,
-  SERVER_PLANS,
+  getPersonalPlan,
+  getServerPlan,
   calculateEffectiveEntitlements,
   getEffectiveModelConfig
 } from "@okg/config";
@@ -21,20 +21,17 @@ export interface RouterResult {
 
 export class SmartModelRouter {
   resolve(request: RouterRequest): RouterResult {
-    const plans =
+    const plan =
       request.planType === "personal"
-        ? PERSONAL_PLANS
-        : SERVER_PLANS;
-
-    const plan = Object.values(plans).find(
-      (candidate) => candidate.planId === request.planId
-    );
+        ? getPersonalPlan(request.planId)
+        : getServerPlan(request.planId);
 
     if (!plan) {
       throw new Error(`Unknown plan: ${request.planId}`);
     }
 
-    const entitlements = calculateEffectiveEntitlements(plan);
+    const entitlements =
+      calculateEffectiveEntitlements(plan);
 
     const model = getEffectiveModelConfig(
       request.selectedModelId,
