@@ -27,7 +27,8 @@ export type {
 
 export {
   calculateEffectiveEntitlements,
-  getEffectiveModelConfig
+  getEffectiveModelConfig,
+  getAvailableModels
 } from "./entitlements/index.js";
 
 export type {
