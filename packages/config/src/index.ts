@@ -1,8 +1,15 @@
 export {
   MODEL_CATALOG,
+  getModelConfig,
   MODEL_DAILY_LIMITS
 } from "./models/index.js";
-export { PERSONAL_PLANS, SERVER_PLANS } from "./plans/index.js";
+
+export {
+  PERSONAL_PLANS,
+  SERVER_PLANS,
+  getPersonalPlan,
+  getServerPlan
+} from "./plans/index.js";
 
 export type {
   ModelGeneration,
