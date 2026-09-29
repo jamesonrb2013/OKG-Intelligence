@@ -1,5 +1,4 @@
 import type {
-  ModelConfig,
   PlanConfig,
   ExpansionConfig
 } from "../types.js";
@@ -69,7 +68,10 @@ export function calculateEffectiveEntitlements(
           break;
 
         case "concurrentRequests":
-          concurrentRequests = Math.max(concurrentRequests, value);
+          concurrentRequests = Math.max(
+            concurrentRequests,
+            value
+          );
           break;
 
         case "contextLimit":
@@ -85,7 +87,8 @@ export function calculateEffectiveEntitlements(
     if (expansion.customizationLevelIncrease !== undefined) {
       customizationLevel = Math.min(
         4,
-        customizationLevel + expansion.customizationLevelIncrease
+        customizationLevel +
+          expansion.customizationLevelIncrease
       ) as PlanConfig["customizationLevel"];
     }
 
@@ -122,5 +125,11 @@ export function calculateEffectiveEntitlements(
   };
 }
 
-export { getEffectiveModelConfig } from "./models.js";
-export type { EffectiveModelConfig } from "./models.js";
+export {
+  getEffectiveModelConfig,
+  getAvailableModels
+} from "./models.js";
+
+export type {
+  EffectiveModelConfig
+} from "./models.js";
