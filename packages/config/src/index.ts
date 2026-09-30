@@ -35,3 +35,12 @@ export type {
   EffectiveEntitlements,
   EffectiveModelConfig
 } from "./entitlements/index.js";
+
+export {
+  calculateTokenCost
+} from "./tokens/index.js";
+
+export type {
+  TokenUsage,
+  TokenCostResult
+} from "./tokens/index.js";
